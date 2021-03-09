@@ -1,0 +1,15 @@
+name: 'Get Jira Keys from PR'
+description: ''
+author: 'spex'
+branding:
+  icon: 'award'
+  color: 'blue'
+inputs:
+  token:
+    description: 'Defines the token to use to execute the git API requests with, uses `env.GITHUB_TOKEN` by default'
+outputs:
+  jiraKeys:
+    description: get jira key from pr branch name
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

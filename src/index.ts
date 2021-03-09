@@ -31,6 +31,4 @@ async function main() {
     core.setFailed(e.message);
   }
 }
-export default main;
-
 main();

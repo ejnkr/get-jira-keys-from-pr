@@ -1,6 +1,8 @@
 # Get Jira Keys from PR
 This Github Action parses all the possible issue keys from the merged PR branch name.
 
+Inspired by [jira-extract-issue-keys](https://github.com/HighwayThree/jira-extract-issue-keys)
+
 ## Requirements
 The branch name must include the Jira Issue keys. 
 

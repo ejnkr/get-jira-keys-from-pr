@@ -1,0 +1,36 @@
+{
+  "name": "get-jira-keys-from-pr",
+  "version": "1.0.0",
+  "description": "Get Jira issue keys from PR branch name.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "prebuild": "tsc",
+    "build": "ncc build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejnkr/get-jira-keys-from-pr.git"
+  },
+  "author": "pro-spex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ejnkr/get-jira-keys-from-pr/issues"
+  },
+  "homepage": "https://github.com/ejnkr/get-jira-keys-from-pr#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@octokit/rest": "^18.3.5",
+    "match-all": "^1.2.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.32",
+    "@vercel/ncc": "^0.27.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.3",
+    "typescript": "^4.2.3"
+  }
+}

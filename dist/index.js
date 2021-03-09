@@ -106,7 +106,6 @@ function main() {
         }
     });
 }
-exports.default = main;
 main();
 
 

@@ -2,6 +2,39 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 501:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const match_all_1 = __importDefault(__nccwpck_require__(816));
+const getJiraKeys = (data, sha) => {
+    const resultArr = [];
+    if (data.length > 0) {
+        const result = data.find(pr => pr.merge_commit_sha === sha);
+        if (result) {
+            const regex = /((([a-zA-Z]+)|([0-9]+))+-\d+)/g;
+            const matches = match_all_1.default(result.head.ref, regex).toArray();
+            matches.forEach((match) => {
+                if (resultArr.find((element) => element === match)) {
+                }
+                else {
+                    resultArr.push(match);
+                }
+            });
+        }
+    }
+    return resultArr.join(',').toUpperCase();
+};
+exports.default = getJiraKeys;
+
+
+/***/ }),
+
 /***/ 822:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -42,7 +75,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const github = __importStar(__nccwpck_require__(438));
 const core = __importStar(__nccwpck_require__(186));
 const rest_1 = __nccwpck_require__(375);
-const match_all_1 = __importDefault(__nccwpck_require__(816));
+const extractKeys_1 = __importDefault(__nccwpck_require__(501));
 function main() {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
@@ -60,22 +93,7 @@ function main() {
                     repo,
                     state: 'closed',
                 });
-                const resultArr = [];
-                if (data.length > 0) {
-                    const result = data.find(pr => pr.merge_commit_sha === github.context.sha);
-                    if (result) {
-                        const regex = /((([a-zA-Z]+)|([0-9]+))+-\d+)/g;
-                        const matches = match_all_1.default(result.head.ref, regex).toArray();
-                        matches.forEach((match) => {
-                            if (resultArr.find((element) => element === match)) {
-                            }
-                            else {
-                                resultArr.push(match);
-                            }
-                        });
-                    }
-                }
-                const jiraKeys = resultArr.join(',').toUpperCase();
+                const jiraKeys = extractKeys_1.default(data, github.context.sha);
                 core.info(`JiraKeys: ${jiraKeys}`);
                 core.setOutput('jiraKeys', jiraKeys);
             }
@@ -88,6 +106,7 @@ function main() {
         }
     });
 }
+exports.default = main;
 main();
 
 

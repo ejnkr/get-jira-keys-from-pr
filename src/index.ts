@@ -1,7 +1,7 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
 import { Octokit } from '@octokit/rest';
-import matchAll from 'match-all';
+import extractKeys from './extractKeys';
 
 async function main() {
   try {
@@ -20,25 +20,8 @@ async function main() {
         state: 'closed',
       });
 
-      const resultArr: string[] = [];
+      const jiraKeys = extractKeys(data, github.context.sha);
 
-      if (data.length > 0) {
-        const result = data.find(
-          pr => pr.merge_commit_sha === github.context.sha,
-        );
-        if (result) {
-          const regex = /((([a-zA-Z]+)|([0-9]+))+-\d+)/g;
-          const matches = matchAll(result.head.ref, regex).toArray();
-          matches.forEach((match: string) => {
-            if (resultArr.find((element: string) => element === match)) {
-            } else {
-              resultArr.push(match);
-            }
-          });
-        }
-      }
-
-      const jiraKeys = resultArr.join(',').toUpperCase();
       core.info(`JiraKeys: ${jiraKeys}`);
       core.setOutput('jiraKeys', jiraKeys);
     } else {
@@ -48,5 +31,6 @@ async function main() {
     core.setFailed(e.message);
   }
 }
+export default main;
 
 main();

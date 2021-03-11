@@ -13,8 +13,7 @@ const getJiraKeys = (
       const regex = /((([a-zA-Z]+)|([0-9]+))+-\d+)/g;
       const matches = matchAll(result.head.ref, regex).toArray();
       matches.forEach((match: string) => {
-        if (resultArr.find((element: string) => element === match)) {
-        } else {
+        if (resultArr.find((element: string) => element !== match)) {
           resultArr.push(match);
         }
       });
